@@ -1,5 +1,7 @@
 #!/bin/bash
+##
 ## SCALA VALUES GENERATION SCRIPT FOR SCALA APPLICATION
+## by Thibault BRONCHAIN
 ##
 
 ## Global variables
