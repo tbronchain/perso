@@ -17,7 +17,7 @@ if [ "$CURENT_VERSION" != "$LATEST_VERSION" ]; then
     cat $GOOGLE_HOSTS > /etc/hosts
     if [ -f "$CUSTOM_HOSTS" ]; then
         echo >> /etc/hosts
-        cat /$CUSTOM_HOSTS >> /etc/hosts
+        cat $CUSTOM_HOSTS >> /etc/hosts
     fi
 fi
 
