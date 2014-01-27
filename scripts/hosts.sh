@@ -6,11 +6,12 @@
 
 CUSTOM_HOSTS='/etc/hosts.my'
 GOOGLE_HOSTS='/etc/hosts.google'
-GOOGLE_HOSTS_URI='https://smarthosts.googlecode.com/svn/trunk/hosts'
+GOOGLE_HOSTS_URI='http://smarthosts.googlecode.com/svn/trunk/hosts'
 UPDATE_PATTERN='#UPDATE:'
+IGNORED_HOST='groups.google.com'
 
 CURENT_VERSION=$(grep $UPDATE_PATTERN $GOOGLE_HOSTS)
-curl -sSL -o $GOOGLE_HOSTS $GOOGLE_HOSTS_URI
+curl -sSL $GOOGLE_HOSTS_URI | grep -v $IGNORED_HOST > $GOOGLE_HOSTS
 LATEST_VERSION=$(grep $UPDATE_PATTERN $GOOGLE_HOSTS)
 
 if [ "$CURENT_VERSION" != "$LATEST_VERSION" ]; then
