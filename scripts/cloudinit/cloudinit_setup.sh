@@ -1,4 +1,5 @@
 #!/bin/bash
+# Author: Thibault BRONCHAIN
 
 VERSION="6-8"
 
