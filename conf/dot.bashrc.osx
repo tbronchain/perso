@@ -1,0 +1,12 @@
+# Exports
+#export C_INCLUDE_PATH=/usr/include:/usr/local/include:~/macports/include
+#export LDFLAGS="-L/usr/local/lib"
+#export CFLAGS="-I/usr/local/include"
+#export PATH=/usr/local/bin:/usr/local/sbin:${HOME}/bin:${PATH}
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:${HOME}/bin:${HOME}/bin/adt/sdk/platform-tools:${HOME}//bin/adt/sdk/tools:${PATH}
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+alias ls='ls -GFh'
