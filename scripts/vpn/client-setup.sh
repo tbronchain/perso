@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # set variables
-VPNHOSTNAME="host.myvpn.com"
-USERNAME="user"
-PASSWORD="pass"
-SERVICE="myvpn"
-SERVER_IP="192.168.2.1"
+VPNHOSTNAME='host.myvpn.com'
+USERNAME='user'
+PASSWORD='pass'
+SERVICE='myvpn'
+SERVER_IP='192.168.2.1'
 
 # install dependencies
 apt-get install pptp-linux
@@ -35,7 +35,7 @@ EOF
 cat > /etc/init.d/vpn <<EOF
 #! /bin/sh
 
-case "$1" in
+case "\$1" in
   start)
     pon $SERVICE
     echo "PPTP Started"
