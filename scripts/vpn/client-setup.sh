@@ -64,5 +64,5 @@ update-rc.d vpn defaults
 # set cron
 CRON=$(crontab -l | grep $SERVER_IP | wc -l)
 if [ $CRON -eq 0 ]; then
-    echo "*/1 * * * * ping -q -c5 $SERVER_IP || service vpn restart" | crontab
+    echo "* * * * * ping -q -c5 $SERVER_IP || /usr/sbin/service vpn restart" | crontab
 fi
