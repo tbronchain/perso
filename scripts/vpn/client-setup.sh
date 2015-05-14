@@ -7,6 +7,8 @@ PASSWORD='pass'
 SERVICE='myvpn'
 SERVER_IP='192.168.2.1'
 
+echo "Configuring auto VPN ..."
+
 # install dependencies
 apt-get install pptp-linux
 
@@ -67,8 +69,11 @@ if [ $CRON -eq 0 ]; then
     cat > /etc/crontab.d/vpn <<EOF
 SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-* * * * * ping -q -c5 $SERVER_IP || /usr/sbin/service vpn restart
+* * * * * root ping -q -c5 $SERVER_IP || /usr/sbin/service vpn restart
 EOF
 fi
 
-echo "Configuration done. Please reboot..."
+# restart crontab
+service crontab reload
+
+echo "Configuration done."
