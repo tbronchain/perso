@@ -64,5 +64,11 @@ update-rc.d vpn defaults
 # set cron
 CRON=$(crontab -l | grep $SERVER_IP | wc -l)
 if [ $CRON -eq 0 ]; then
-    echo "* * * * * ping -q -c5 $SERVER_IP || /usr/sbin/service vpn restart" | crontab
+    cat > /etc/crontab.d/vpn <<EOF
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+* * * * * ping -q -c5 $SERVER_IP || /usr/sbin/service vpn restart
+EOF
 fi
+
+echo "Configuration done. Please reboot..."
