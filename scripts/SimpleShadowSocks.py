@@ -20,21 +20,39 @@ base_model = {
 class AwesomeStatusBarApp(rumps.App):
     def __init__(self):
         super(AwesomeStatusBarApp, self).__init__("ES")
-        self.menu = ["Disconnect", "Change IP", "About"]
+        self.menu = ["Disconnect", "Reconnect", "Change IP", "About"]
         subprocess.call(["launchctl","load",os.path.expanduser("~/Library/LaunchAgents/homebrew.mxcl.shadowsocks-libev.plist")])
+        pout,perr = subprocess.Popen("networksetup -getsocksfirewallproxy Wi-Fi | grep \"^Enabled: Yes$\" | wc -l", shell=True, stdout=subprocess.PIPE).communicate()
+        print "res = %s"%pout
+        res = 0
+        try:
+            res = int(pout)
+        except:
+            pass
+        if res != 1:
+            subprocess.call(["networksetup","-setsocksfirewallproxystate","Wi-Fi","on"])
+
+    @rumps.clicked("Reconnect")
+    def reconnect(self, sender):
+        subprocess.call(["launchctl","unload",os.path.expanduser("~/Library/LaunchAgents/homebrew.mxcl.shadowsocks-libev.plist")])
+        time.sleep(1)
+        subprocess.call(["launchctl","load",os.path.expanduser("~/Library/LaunchAgents/homebrew.mxcl.shadowsocks-libev.plist")])
+        #rumps.alert("Easy ShadowSocks", "Reconnected!")
 
     @rumps.clicked("Disconnect")
     def disconnect(self, sender):
         if sender.title == "Disconnect":
+            subprocess.call(["networksetup","-setsocksfirewallproxystate","Wi-Fi","off"])
             subprocess.call(["launchctl","unload",os.path.expanduser("~/Library/LaunchAgents/homebrew.mxcl.shadowsocks-libev.plist")])
             time.sleep(1)
             sender.title = 'Connect'
-            rumps.alert("Easy ShadowSocks", "Disconnected!")
+            #rumps.alert("Easy ShadowSocks", "Disconnected!")
         else:
             subprocess.call(["launchctl","load",os.path.expanduser("~/Library/LaunchAgents/homebrew.mxcl.shadowsocks-libev.plist")])
+            subprocess.call(["networksetup","-setsocksfirewallproxystate","Wi-Fi","on"])
             time.sleep(1)
             sender.title = 'Disconnect'
-            rumps.alert("Easy ShadowSocks", "Connected!")
+            #rumps.alert("Easy ShadowSocks", "Connected!")
 
     @rumps.clicked("Change IP")
     def change_ip(self, _):
@@ -57,7 +75,7 @@ class AwesomeStatusBarApp(rumps.App):
         subprocess.call(["launchctl","unload",os.path.expanduser("~/Library/LaunchAgents/homebrew.mxcl.shadowsocks-libev.plist")])
         time.sleep(1)
         subprocess.call(["launchctl","load",os.path.expanduser("~/Library/LaunchAgents/homebrew.mxcl.shadowsocks-libev.plist")])
-        rumps.alert("Easy ShadowSocks", "IP changed to %s!"%(model["server"]))
+        #rumps.alert("Easy ShadowSocks", "IP changed to %s!"%(model["server"]))
 
     @rumps.clicked("About")
     def about(self, _):
