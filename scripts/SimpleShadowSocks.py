@@ -1,6 +1,6 @@
 # Easy ShadowSocks
 # by Thibault Bronchain
-# (c) 2015 Almaritech Ltd. - All Rights Reserved
+# (c) 2015 - All Rights Reserved
 
 import rumps
 import subprocess
@@ -79,7 +79,7 @@ class AwesomeStatusBarApp(rumps.App):
 
     @rumps.clicked("About")
     def about(self, _):
-        rumps.alert("Easy ShadowSocks", "Author: Thibault Bronchain\n(c) 2015 Almaritech Ltd. - All Rights Reserved")
+        rumps.alert("Easy ShadowSocks", "Author: Thibault Bronchain\n(c) 2015 - All Rights Reserved")
 
 
 if __name__ == "__main__":
