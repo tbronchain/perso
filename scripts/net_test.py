@@ -25,9 +25,9 @@ for count in range(0, retries):
     except Exception as e:
         print("Test uri unreachable, rebooting service")
         os.system("ssh root@{0} /etc/init.d/redsocks2 stop".format(gw_ip))
-        os.system("ssh root@{0} /etc/init.d/shadosocks stop".format(gw_ip))
+        os.system("ssh root@{0} /etc/init.d/shadowsocks stop".format(gw_ip))
         time.sleep(1)
-        os.system("ssh root@{0} /etc/init.d/shadosocks start".format(gw_ip))
+        os.system("ssh root@{0} /etc/init.d/shadowsocks start".format(gw_ip))
         os.system("ssh root@{0} /etc/init.d/redsocks2 start".format(gw_ip))
         break
     else:
